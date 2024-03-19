@@ -3,15 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entry Form</title>
+    <title>Data Entry Form</title>
+    <style>
+        fieldset {
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="date"] {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
+    <h1>Data Entry Form</h1>
     <form action="/" method="post">
-        <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" required><br>
-        <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" name="last_name" required><br>
-        <input type="submit" value="Append">
+        <fieldset>
+            <legend>Applicant Data</legend>
+            <label for="ApplicantID">Applicant ID:</label><br>
+            <input type="text" id="ApplicantID" name="ApplicantID" required><br>
+            <label for="FamilyName">Family Name:</label><br>
+            <input type="text" id="FamilyName" name="FamilyName" required><br>
+            <label for="GivenName">Given Name:</label><br>
+            <input type="text" id="GivenName" name="GivenName" required><br>
+            <label for="Nationality">Nationality:</label><br>
+            <input type="text" id="Nationality" name="Nationality" required><br>
+            <label for="Gender">Gender:</label><br>
+            <input type="text" id="Gender" name="Gender" required><br>
+            <label for="CountryOfBirth">Country of Birth:</label><br>
+            <input type="text" id="CountryOfBirth" name="CountryOfBirth" required><br>
+            <label for="PlaceOfBirth">Place of Birth:</label><br>
+            <input type="text" id="PlaceOfBirth" name="PlaceOfBirth" required><br>
+            <label for="DateOfBirth">Date of Birth:</label><br>
+            <input type="date" id="DateOfBirth" name="DateOfBirth" required><br>
+            <label for="ApplicantPassportOrTravelDocumentNumber">Passport or Travel Document Number:</label><br>
+            <input type="text" id="ApplicantPassportOrTravelDocumentNumber" name="ApplicantPassportOrTravelDocumentNumber" required><br>
+        </fieldset>
+        <input type="submit" value="Submit">
     </form>
 </body>
 </html>
