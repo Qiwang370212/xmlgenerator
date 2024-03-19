@@ -1,0 +1,973 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema xmlns:tns="http://homeoffice.gov.uk/immigration/migrant/cas/bulk-cas-common-200910" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://homeoffice.gov.uk/immigration/migrant/cas/bulk-cas-common-200910" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1" id="MigrantCASBulkDataCommon">
+
+	<!-- Simple Types -->
+	<xs:simpleType name="AddressLineType">
+		<xs:annotation>
+			<xs:documentation>Specifies a UK address line</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="tns:PBSStringType">
+			<xs:maxLength value="35"/>
+			<xs:pattern value="[A-Za-z0-9 ~!@%()\*\+,-./:;=?^_\{\}&amp;&apos;]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ApplicantIDType">
+		<xs:annotation>
+			<xs:documentation>
+				Describes a valid Applicant ID.
+				This is taken from the Sponsor's local system.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="tns:PBSStringType">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SELTScoreType">
+		<xs:annotation>
+			<xs:documentation>
+				Describes a valid selt score, writing/listening/reading/speaking.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="tns:PBSStringType">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ApplicationIDType">
+		<xs:annotation>
+			<xs:documentation>
+				Describes a valid Migrant Leave application ID
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="tns:PBSStringType">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BulkUploadFileIDType">
+		<xs:annotation>
+			<xs:documentation>Specifies an allowable ID for a bulk upload file</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="tns:PBSStringType">
+			<xs:maxLength value="50"/>
+			<xs:minLength value="2"/>
+			<xs:pattern value="[A-Za-z0-9]{1}[A-Za-z0-9 _\.\-]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CASNumberType">
+		<xs:annotation>
+			<xs:documentation>A CAS Number type and format</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="14"/>
+			<xs:pattern value="(E(4[CG])[0-9][A-Z]{2}[0-9][A-Z][0-9]{2}[A-Z][0-9][A-Z][0-9X])"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CASStatusType">
+		<xs:annotation>
+			<xs:documentation>Describes Valid CAS Statuses</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ASSIGNED"/>
+			<xs:enumeration value="USED"/>
+			<xs:enumeration value="WITHDRAWN"/>
+			<xs:enumeration value="CANCELLED"/>
+			<xs:enumeration value="EXPIRED"/>
+			<xs:enumeration value="OBSOLETE"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ComparisonLevelType">
+		<xs:annotation>
+			<xs:documentation>Describes valid comparison levels</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="HIGHER"/>
+			<xs:enumeration value="LOWER"/>
+			<xs:enumeration value="SAME"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CountryAreaDistrictType">
+		<xs:annotation>
+			<xs:documentation>Specifies the type for a county, area or district</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="tns:AddressLineType"/>
+	</xs:simpleType>
+	<xs:simpleType name="CountryType">
+		<xs:annotation>
+			<xs:documentation>A 3 character nationality code as defined in guidance</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z]{3}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CourseCurriculumTitleType">
+		<xs:annotation>
+			<xs:documentation>Describes format for a valid Course Curriculum Title</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="tns:PBSStringType">
+			<xs:maxLength value="250"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CourseIDType">
+		<xs:annotation>
+			<xs:documentation>Describes a valid Course ID </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="tns:PBSStringType">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="GenderType">
+		<xs:annotation>
+			<xs:documentation>Restricted ISO 5218 gender code: 1 = Male, 2 = Female</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:byte">
+			<xs:pattern value="1"/>
+			<xs:pattern value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="InternationalPostCodeType">
+		<xs:annotation>
+			<xs:documentation>International Post-code</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="tns:PBSStringType">
+			<xs:maxLength value="35"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NameType">
+		<xs:annotation>
+			<xs:documentation>
+				Specifies family or given name for a person.
+				This element may be up to 35 characters long.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="tns:PBSStringType">
+			<xs:maxLength value="35"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PersonsOtherNamesType">
+		<xs:annotation>
+			<xs:documentation>
+				Specifies a name for a person's other name.
+				This can be any name other than the primary given name and the family name.
+				This element may be up to 250 characters long.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="tns:PBSStringType">
+			<xs:maxLength value="250"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OrganisationNameType">
+		<xs:annotation>
+			<xs:documentation>
+				Specifies an Organisation Name.
+				This element may be up to 250 characters long.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="tns:PBSStringType">
+			<xs:maxLength value="250"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NationalityType">
+		<xs:annotation>
+			<xs:documentation>
+				A 3 character nationality code as defined in guidance,
+				 or the word "STATELESS"
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value='[A-Z]{3}|"STATELESS"'/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PassportOrTravelDocumentNumberType">
+		<xs:annotation>
+			<xs:documentation>Migrant passport or travel document number</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="tns:PBSStringType">
+			<xs:maxLength value="35"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PBSStringType">
+		<xs:annotation>
+			<xs:documentation>
+				Describes a valid string in PBS - restricted to characters from ISO 8859-1
+      			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:pattern value="[&#x0020;-&#x007E;&#x00A0;-&#x00FF;]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PBSMultiLineStringType">
+		<xs:annotation>
+			<xs:documentation>
+				Describes a valid string in PBS
+				 - restricted to characters from ISO 8859-1 
+				   including Carriage Return and Line Feed
+      			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:pattern value="[&#x0020;-&#x007E;&#x00A0;-&#x00FF;\s]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PoundsSterlingType">
+		<xs:annotation>
+			<xs:documentation>Specifies a two decimal place numeric format</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:maxExclusive value="1000000000"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SponsorLicenceNumberType">
+		<xs:annotation>
+			<xs:documentation>
+				A sponsor licence is eight alphanumeric characters
+				with one check character and takes the format 
+					aaaaaaaaC
+				where 	a is from the range: A-H,J-K,M-N,P-R,T-Z, 0-9 
+					C is from the range 0..9 or X
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="9"/>
+			<xs:pattern value="[A-Z0-9]{8}[0-9X]{1}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TownType">
+		<xs:annotation>
+			<xs:documentation>Specifies a town or city</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="tns:AddressLineType"/>
+	</xs:simpleType>
+	<xs:simpleType name="UKPostCodeType">
+		<xs:annotation>
+			<xs:documentation>UK Post-code, corresponding to BS7666</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="tns:PBSStringType">
+			<xs:maxLength value="10"/>
+			<xs:pattern value="([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- Complex Types -->
+	<xs:complexType name="ApplicantDataStructure">
+		<xs:annotation>
+			<xs:documentation>Describes Data about the applicant, specifically date of birth, address names etc</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ApplicantID" type="tns:ApplicantIDType">
+				<xs:annotation>
+					<xs:documentation>Sponsor's system unique ID for a student</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ApplicationID" type="tns:ApplicationIDType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						Sponsor's system unique ID for an application 
+						(i.e. - for a student on a course)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UCAS_UKPASS_Id" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						UCAS unique identifier for a student.
+						Will be the UCAS ID or in the case of postgraduates
+						the UKPASS ID
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="10"/>
+						<xs:pattern value="1[A-Za-z0-9]{9}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="FamilyName" type="tns:NameType"/>
+			<xs:element name="GivenName" type="tns:NameType" minOccurs="0"/>
+			<xs:element name="OtherNames" type="tns:PersonsOtherNamesType" minOccurs="0"/>
+			<xs:element name="Nationality" type="tns:NationalityType">
+				<xs:annotation>
+					<xs:documentation>A 3 character nationality code as defined in guidance</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Gender" type="tns:GenderType"/>
+			<xs:element name="CountryOfBirth" type="tns:CountryType">
+				<xs:annotation>
+					<xs:documentation>A 3 character country code as defined in guidance</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PlaceOfBirth" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="tns:TownType">
+						<xs:maxLength value="30"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="DateOfBirth" type="tns:PotentiallyPartialDateStructure">
+				<xs:annotation>
+					<xs:documentation>Migrant's Date of Birth, may be partial</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ApplicantPassportOrTravelDocumentNumber" type="tns:PassportOrTravelDocumentNumberType">
+				<xs:annotation>
+					<xs:documentation>Migrant's passport or travel document number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BulkFileHeaderStructure">
+		<xs:annotation>
+			<xs:documentation>Describes the elements present in the file upload header</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="BulkUploadFileId" type="tns:BulkUploadFileIDType">
+				<xs:annotation>
+					<xs:documentation>
+						Uniquely identifies the Upload or Update file.
+						Specified once per upload file.
+						Specified on sponsor's local system
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Version"
+				type="tns:PBSStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						Defines the version of the Bulk CAS upload. version 2.1 matches to  R375 with additional CAS fields.
+					</xs:documentation>
+				</xs:annotation>
+  			</xs:element>
+			<xs:element name="SchemaID">
+				<xs:annotation>
+					<xs:documentation>
+						This identifies the schema used by the SMS 
+						to validate a transfer file in the upload process.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="T4General Ready To Go"/>
+						<xs:enumeration value="T4Child Ready To Go"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="TierID">
+				<xs:annotation>
+					<xs:documentation>Specified once per upload file</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Tier 4"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Category">
+				<xs:annotation>
+					<xs:documentation>
+						Specifies the category within the specified tier for this application. 
+						Specified once per upload file
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="General"/>
+						<xs:enumeration value="Child"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="SponsorLicenceNumber" type="tns:SponsorLicenceNumberType">
+				<xs:annotation>
+					<xs:documentation>
+						Specified once per upload file.
+						Uniquely identifies an Educational Institute as a Sponsor within SMS.
+						Created using a random process that generates the SLN in an 
+						8 alpha-numeric with a final check digit.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BulkFileUploadGeneralStructure">
+		<xs:annotation>
+			<xs:documentation>Describes the overall file structure for the bulk file upload</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Header" type="tns:BulkFileHeaderStructure">
+				<xs:annotation>
+					<xs:documentation>
+						The header details of the bulk upload file.
+						Specified once per upload file and contains per upload properties.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence>
+				<xs:element name="CAS" type="tns:GeneralCASStructure" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Describes an individual CAS, at least one specified per file upload</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BulkFileUploadChildStructure">
+		<xs:annotation>
+			<xs:documentation>Describes the overall file structure for the bulk file upload</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Header" type="tns:BulkFileHeaderStructure">
+				<xs:annotation>
+					<xs:documentation>
+						The header details of the bulk upload file.
+						Specified once per upload file and contains per upload properties
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence>
+				<xs:element name="CAS" type="tns:ChildCASStructure" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Describes an individual CAS, at least one specified per file upload</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChildCASStructure">
+		<xs:annotation>
+			<xs:documentation>Describes the CAS structure</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ApplicantData"
+				type="tns:ApplicantDataStructure">
+				<xs:annotation>
+					<xs:documentation>
+						Describes Data about the applicant
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NonSponsorEducationInstitutionData"
+				type="tns:NonSponsorEducationInstitutionDataStructure" />
+			<xs:element name="CourseDetails"
+				type="tns:CourseDetailsStructure" />
+
+			<xs:element name="Documentation"
+				type="tns:DocumentationStructure">
+				<xs:annotation>
+					<xs:documentation>
+						Documentation used to support the application to
+						the Sponsor to study
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="FinancialAndAccommodationDetails"
+				type="tns:FinancialAndAccommodationDataStructure" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CourseDetailsStructure">
+		<xs:annotation>
+			<xs:documentation>Describes the overall course details</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CourseCurriculumTitle"
+				type="tns:CourseCurriculumTitleType">
+				<xs:annotation>
+					<xs:documentation>
+						This will be a secondary identifier of
+						duplicated records already on the SMS.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CourseID" type="tns:CourseIDType"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						Sponsor's system ID for a course if it has one.
+
+						If supplied this will be a secondary identifier
+						of duplicated records already on the SMS.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AcademicLevel">
+				<xs:annotation>
+					<xs:documentation>
+						Academic level based in the National
+						Qualification Framework level. Select from
+						values supplied in guidance. If not supplied
+						when required a warning will be generated, CAS
+						will not be ready to go and will require
+						correction online.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="tns:PBSStringType">
+						<xs:maxLength value="250" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="SecondaryAcademicLevel" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						The National Qualification Framework level or
+						the type of qualification, for example a
+						bachelor's degree in chemical engineering
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="tns:PBSStringType">
+						<xs:maxLength value="250" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CourseStartDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>
+						Start date (the date a student starts their main
+						studies, or the date they start an induction or
+						course to prepare for study if an unconditional
+						offer to do a main course is held).
+
+						This will be a secondary identifier of
+						duplicated records already on the SMS.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LatestDateForAcceptanceOnCourse"
+				type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						Latest date a migrant can be accepted on to a
+						course.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExpectedCourseEndDate" type="xs:date" />
+			<xs:element name="CourseIsFullTime" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>
+						Specifies whether the course is a full time
+						course. "Full-time" is only an acceptable format
+						for response where the 'Academic Level of
+						Course/Qualification Awarded on Completion'
+						field is: - A recognised bachelor degree - A
+						recognised postgraduate degree - An overseas
+						higher education course equivalent to a UK HE
+						course
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CourseHoursPerWeek">
+				<xs:annotation>
+					<xs:documentation>
+
+						This specifies the number of course hours per
+						week. For T4 General CAS - this is optional if
+						studying a full-time degree course that leads to
+						a United Kingdom recognised bachelor or
+						postgraduate degree or an overseas higher
+						education course equivalent to a United Kingdom
+						higher education course. For T4 Child CAS: this
+						information is not mandatory. If any of these
+						cases apply to the course, a value of 0.0 is
+						permissible
+
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:minInclusive value="0.0" />
+						<xs:maxInclusive value="168.0" />
+						<xs:fractionDigits value="1" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+
+			<xs:element name="MainSiteOfStudy"
+				type="tns:UKAddressStructure" minOccurs="1" />
+		      	<xs:element name="ApplicantHasWorkPlacement" type="xs:boolean">
+        			<xs:annotation>
+          				<xs:documentation>
+						Specifies whether the applicant is undertaking 
+						a work placement as part of this course.
+					</xs:documentation>
+        			</xs:annotation>
+			</xs:element>
+		      <xs:element name="WorkPlacementAddress" type="tns:InternationalAddressStructure" minOccurs="0">
+			<xs:annotation>
+			  <xs:documentation>Specifies the work placement address (if known)</xs:documentation>
+			</xs:annotation>
+		      </xs:element>	
+		</xs:sequence>
+	</xs:complexType>
+  <xs:complexType name="DocumentationStructure">
+    <xs:annotation>
+      <xs:documentation>Documentation declared to the sponsor which is  used to support the migrant's application to study</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DocumentsUsedToObtainOffer">
+        <xs:annotation>
+          <xs:documentation>  List of evidence considered by the sponsor to assess the applicant's suitability to complete the course. This should include:
+ Level / type of qualification (if applicable)  
+ Qualification awarding body and / or institution (if applicable)  
+ Date of Award
+                  
+ Where appropriate for Postgraduate Doctor and Dentists this may include a letter from the Postgraduate Dean evidencing recognition by the  medical community
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="tns:PBSMultiLineStringType">
+            <xs:maxLength value="2000"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="CourseRequiresATAS" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Denotes whether the course requires an Academic technology Approval Scheme (ATAS) certificate.
+The courses requiring an ATAS certificate are detailed on the FCO website here:
+http://www.fco.gov.uk/en/fco-in-action/counter-terrorism/weapons/atas/atas-faq/faqs-universities
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PostgraduateDeanCertificateRequired" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Denotes whether the course requires a certificate from the Sponsor's Postgraduate Dean (for Postgraduate Doctor and Dental courses only)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  	<xs:complexType name="EvidenceDataStructure">
+  		<xs:annotation>
+  			<xs:documentation>
+  				Documentation declared to the sponsor 
+  				which is used to support the migrant's application to study
+  			</xs:documentation>
+  		</xs:annotation>
+  		<xs:sequence>
+  
+  			<xs:element name="SELTRequired" type="xs:boolean"
+  				minOccurs="0">
+  				<xs:annotation>
+  					<xs:documentation>
+  						Defines whether SELT is required for this
+  						student. True or false
+  					</xs:documentation>
+  				</xs:annotation>
+  			</xs:element>
+  			<xs:element name="ReasonSELTNotRequired"
+  				type="tns:PBSStringType" minOccurs="0">
+  				<xs:annotation>
+  					<xs:documentation>
+  						Defines why a SELT qualification is not required
+  						Values must be one of the reasons listed in the
+  						guidance
+  					</xs:documentation>
+  				</xs:annotation>
+  			</xs:element>
+  			<xs:element name="EnglishLanguageLevelAttained"
+  				type="tns:PBSStringType" minOccurs="0">
+  				<xs:annotation>
+  					<xs:documentation>
+  						Defines the level of English language attained
+  						by the student if the SELT is required. Value
+  						must be one from the SELT level supplied in the
+  						guidance documentation
+  					</xs:documentation>
+  				</xs:annotation>
+  			</xs:element>
+  			<xs:element name="SELTSpeakingLevel" type="tns:SELTScoreType" minOccurs="0">
+  				<xs:annotation>
+  					<xs:documentation>
+  						Defines the level attained in the speaking FACET
+  						of the SELT training
+  					</xs:documentation>
+  				</xs:annotation>
+  			</xs:element> 
+ 			<xs:element name="SELTListeningLevel" type="tns:SELTScoreType" minOccurs="0">
+  				<xs:annotation>
+  					<xs:documentation>
+  						Defines the level attained in the listening
+  						FACET of the SELT training
+  					</xs:documentation>
+  				</xs:annotation>
+  			</xs:element>
+  			<xs:element name="SELTReadingLevel" type="tns:SELTScoreType" minOccurs="0">
+  				<xs:annotation>
+  					<xs:documentation>
+  						Defines the level attained in the reading FACET
+  						of the SELT training
+  					</xs:documentation>
+  				</xs:annotation>
+  			</xs:element>
+  			<xs:element name="SELTWritingLevel" type="tns:SELTScoreType" minOccurs="0">
+  				<xs:annotation>
+  					<xs:documentation>
+  						Defines the level attained in the writing FACET
+  						of the SELT training
+  					</xs:documentation>
+  				</xs:annotation>
+  			</xs:element>
+  			<xs:element name="TestProvider" type="tns:PBSStringType" minOccurs="0">
+  				<xs:annotation>
+  					<xs:documentation>
+  						Defines where the student received the test to obtain the qualification
+  						Must be one of the ELTP reference data
+  					</xs:documentation>
+  				</xs:annotation>
+  			</xs:element>
+  			<xs:element name="PreviousUKStudy" type="xs:boolean" minOccurs="0">
+  				<xs:annotation>
+  					<xs:documentation>Has the applicant previously been student resident in the United Kingdom?</xs:documentation>
+  				</xs:annotation>
+  			</xs:element>
+  			<xs:element name="PreviousAcademicLevel" minOccurs="0" type="tns:PBSStringType">
+  				<xs:annotation>
+  					<xs:documentation>
+  						Academic level of the previous course undertaken by the applicant
+  						based on the National Qualification Framework level.
+  						Select from values supplied in guidance.
+  						If not supplied when required a warning will be generated,
+  						CAS will not be ready to go and will require correction online.
+  					</xs:documentation>
+  				</xs:annotation>
+  			</xs:element>
+  			<xs:element name="CurrentPreviousCourseLevelComparison" type="tns:ComparisonLevelType" minOccurs="0">
+  				<xs:annotation>
+  					<xs:documentation>
+  						Defines whether the current course being undertaken is 
+  						Higher, Lower or the Same level as the previous course.
+  						If not supplied when required a warning will be generated,
+  						CAS will not be ready to go and will require correction online.
+  					</xs:documentation>
+  				</xs:annotation>
+  			</xs:element>
+  			<xs:element name="ProgressionJustification" minOccurs="0" maxOccurs="1">
+  				<xs:annotation>
+  					<xs:documentation>
+  						Free text must be supplied if the previous field is not HIGHER.
+  						Give reason why applicant is not progressing on an upward training path.
+  					</xs:documentation>
+  				</xs:annotation>
+  				<xs:simpleType>
+  					<xs:restriction base="tns:PBSMultiLineStringType">
+  						<xs:maxLength value="1000"/>
+  					</xs:restriction>
+  				</xs:simpleType>
+  			</xs:element>
+  		</xs:sequence>
+	</xs:complexType>
+  
+	<xs:complexType name="FinancialAndAccommodationDataStructure">
+		<xs:annotation>
+			<xs:documentation>Describes financial data pertaining to the applicant's study in the UK</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AccomodationProvided" type="xs:boolean" nillable="true">
+				<xs:annotation>
+					<xs:documentation>Will the sponsor be providing accommodation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CourseFeeIncludesAccomodationCosts" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>
+						If the course fees include the cost of accommodation,
+						this will need to be taken into account when assessing maintenance costs
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CourseFeesForFirstYearOnly" type="tns:PoundsSterlingType"/>
+			<xs:element name="CourseFeesPaidToDate" type="tns:PoundsSterlingType" minOccurs="0"/>
+			<xs:element name="AccommodationFeesPaidToDate" type="tns:PoundsSterlingType" minOccurs="0"/>
+			<xs:element name="BoardingFeesForFirstYearOnly" type="tns:PoundsSterlingType">
+				<xs:annotation>
+					<xs:documentation>
+						Course fees and board or lodging fees for the first year where applicable.
+						It is anticipated that this will predominantly apply to fee paying schools.
+						If this field is 0, then it is assumed that the field is not applicable.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BoardingFeesPaidToDate" type="tns:PoundsSterlingType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+  
+    	<xs:complexType name="GeneralCASStructure">
+  		<xs:annotation>
+  			<xs:documentation>Describes the CAS structure</xs:documentation>
+  		</xs:annotation>
+  		<xs:sequence>
+  		<xs:element name="ApplicantData"
+  			type="tns:ApplicantDataStructure" />
+  		<xs:element name="NonSponsorEducationInstitutionData"
+  			type="tns:NonSponsorEducationInstitutionDataStructure" />
+  		<xs:element name="CourseDetails"
+  			type="tns:CourseDetailsStructure" />
+  
+  		<xs:element name="WorkPlacementDetails"
+  			type="tns:WorkPlacementDataStructure" minOccurs="0">
+  		</xs:element>
+              	<xs:element name="Documentation" type="tns:DocumentationStructure">
+  		</xs:element>
+              
+              	<xs:element name="EvidenceDetails"
+  			type="tns:EvidenceDataStructure" minOccurs="0">
+  			<xs:annotation>
+  				<xs:documentation>
+  					Documentation used to support the application to
+  					the Sponsor to study
+  				</xs:documentation>
+  			</xs:annotation>
+  		</xs:element>
+  		
+  		<xs:element name="FinancialAndAccommodationDetails"
+  			type="tns:FinancialAndAccommodationDataStructure" />
+  		</xs:sequence>
+	</xs:complexType>
+	
+	
+  <xs:complexType name="InternationalAddressStructure">
+    <xs:annotation>
+      <xs:documentation>Describes a valid International Address</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="AddressLine" type="tns:AddressLineType" maxOccurs="3"/>
+      <xs:element name="City" type="tns:TownType"/>
+      <xs:element name="CountyAreaDistrict" type="tns:CountryAreaDistrictType" minOccurs="0"/>
+      <xs:element name="PostCode" type="tns:InternationalPostCodeType" minOccurs="0"/>
+      <xs:element name="Country" type="tns:CountryType"/>
+    </xs:sequence>
+  </xs:complexType>
+   <xs:complexType name="NonSponsorEducationInstitutionDataStructure">
+	<xs:annotation>
+		<xs:documentation>
+			Describes details about partner institutions or work placements 
+			as part of the applicant's study in the UK
+		</xs:documentation>
+	</xs:annotation>
+    <xs:sequence>
+      <xs:element name="PartnerInstitutionDetails" type="tns:PartnerInstitutionDetailsStructure" minOccurs="0"/>
+      <xs:element name="OverseasHigherEducationInstitutionDetails" type="tns:OverseasHigherEducationInstitutionStructure" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OverseasHigherEducationInstitutionStructure">
+    <xs:annotation>
+      <xs:documentation>Describes the overseas education institution details</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Name" type="tns:OrganisationNameType"/>
+      <xs:element name="Address" type="tns:InternationalAddressStructure"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartnerInstitutionDetailsStructure">
+    <xs:annotation>
+      <xs:documentation>Describes the partner institution details</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Name" type="tns:OrganisationNameType"/>
+      <xs:element name="SponsorLicenseNumber" type="tns:SponsorLicenceNumberType" minOccurs="0"/>
+      <xs:element name="AddressDetails" type="tns:InternationalAddressStructure"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PotentiallyPartialDateStructure">
+	<xs:annotation>
+		<xs:documentation>
+			Describes a date structure that may be either  
+			  1. A year
+			  2. A year and month
+			  3. A year, month and day. 
+			These structures will not allow for any additional timezone information.
+		</xs:documentation>
+	</xs:annotation>
+    <xs:choice>
+      <xs:element name="FullDate">
+        <xs:annotation>
+          <xs:documentation>A full date</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:date">
+            <xs:pattern value="[0-9]{4}-[0-9]{2}-[0-9]{2}"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Year">
+        <xs:annotation>
+          <xs:documentation>A year</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:gYear">
+            <xs:pattern value="[0-9]{4}"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="YearMonth">
+        <xs:annotation>
+          <xs:documentation>A year and month</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:gYearMonth">
+            <xs:pattern value="[0-9]{4}-[0-9]{2}"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="UKAddressStructure">
+    <xs:annotation>
+      <xs:documentation>Describes a valid UK Address</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="AddressLine" type="tns:AddressLineType" maxOccurs="3"/>
+      <xs:element name="City" type="tns:TownType"/>
+      <xs:element name="CountyAreaDistrict" type="tns:CountryAreaDistrictType" minOccurs="0"/>
+      <xs:element name="PostCode" type="tns:UKPostCodeType"/>
+    </xs:sequence>
+  </xs:complexType>
+	<xs:complexType name="WorkPlacementDataStructure">
+		<xs:annotation>
+			<xs:documentation>Describes a valid UK Address</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="WorkPlacementPercentage"
+				type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						If the course requires work
+						placement, the percentage of work
+						placement being undertaken. 
+						Select from values supplied in guidance. 
+						If not supplied when required a warning
+						will be generated, CAS will not be
+						ready to go and will require
+						correction online.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element
+				name="WorkPlacementJustificationText" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						Free text, must be supplied if the
+						WorkPlacementPercentage is above the
+						threshold as published in guidance. 
+						Give reason why	the applicant is undertaking 
+						excessive amount of work placement.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="tns:PBSMultiLineStringType">
+						<xs:maxLength value="2000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="WorkPlacementAddress"
+				type="tns:InternationalAddressStructure" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						Specifies the work placement address
+						(if known)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>  
+</xs:schema>
