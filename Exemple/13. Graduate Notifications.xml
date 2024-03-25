@@ -1,0 +1,30 @@
+<bulk:BulkReportingRootElement
+        xmlns:bulk="http://homeoffice.gov.uk/immigration/migrant/cas/bulk-cas-reporting-graduated-202102">
+  <bulk:BulkReportingFileHeader>
+    <bulk:BulkReportingId>1234</bulk:BulkReportingId>
+  </bulk:BulkReportingFileHeader>
+  <bulk:BulkReportingCASData>
+    <bulk:CASReport>GRADUATED</bulk:CASReport>
+    <bulk:BulkReportingCASGraduation>
+      <bulk:CASNumber>E4G0AA0A00A0A1</bulk:CASNumber>
+    </bulk:BulkReportingCASGraduation>
+  </bulk:BulkReportingCASData>
+  <bulk:BulkReportingCASData>
+    <bulk:CASReport>GRADUATED</bulk:CASReport>
+    <bulk:BulkReportingCASGraduation>
+      <bulk:CASNumber>E4G0AA0A00A0A2</bulk:CASNumber>
+    </bulk:BulkReportingCASGraduation>
+  </bulk:BulkReportingCASData>
+  <bulk:BulkReportingCASData>
+    <bulk:CASReport>GRADUATED</bulk:CASReport>
+    <bulk:BulkReportingCASGraduation>
+      <bulk:CASNumber>E4G0AA0A00A0A3</bulk:CASNumber>
+    </bulk:BulkReportingCASGraduation>
+  </bulk:BulkReportingCASData>
+  <bulk:BulkReportingCASData>
+    <bulk:CASReport>GRADUATED</bulk:CASReport>
+    <bulk:BulkReportingCASGraduation>
+      <bulk:CASNumber>E4G0AA0A00A0A4</bulk:CASNumber>
+    </bulk:BulkReportingCASGraduation>
+  </bulk:BulkReportingCASData>
+</bulk:BulkReportingRootElement>

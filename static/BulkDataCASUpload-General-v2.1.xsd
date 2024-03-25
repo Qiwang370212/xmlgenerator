@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema xmlns:tns="http://homeoffice.gov.uk/immigration/migrant/cas/bulk-cas-upload-200910" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:cmn="http://homeoffice.gov.uk/immigration/migrant/cas/bulk-cas-common-200910" targetNamespace="http://homeoffice.gov.uk/immigration/migrant/cas/bulk-cas-upload-200910" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1" id="MigrantCASBulkDataUploadSchema">
+  <!-- Import common simple and complex types -->
+  <xs:import namespace="http://homeoffice.gov.uk/immigration/migrant/cas/bulk-cas-common-200910" schemaLocation="BulkDataCommon-v2.1.xsd"/>
+  <!--The root element of the bulk upload file-->
+  <xs:element name="BulkFileUploadGeneralRootElement" type="cmn:BulkFileUploadGeneralStructure">
+    <xs:annotation>
+      <xs:documentation>The root element for an upload of bulk CAS data</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

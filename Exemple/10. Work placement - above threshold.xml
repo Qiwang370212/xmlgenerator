@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<ns2:BulkFileUploadGeneralRootElement xmlns:ns2="http://homeoffice.gov.uk/immigration/migrant/cas/bulk-cas-upload-200910" xmlns="http://homeoffice.gov.uk/immigration/migrant/cas/bulk-cas-common-200910">
+<Header>
+	<BulkUploadFileId>oneBasicCAS</BulkUploadFileId>
+	<SchemaID>T4General Ready To Go</SchemaID>
+	<TierID>Tier 4</TierID>
+	<Category>General</Category>
+	<SponsorLicenceNumber>QHDGHB91X</SponsorLicenceNumber>
+</Header>
+<CAS>
+	<ApplicantData>
+		<ApplicantID>1234567890ABCDEFG</ApplicantID>
+		<FamilyName>Barry</FamilyName>
+		<GivenName>Gareth</GivenName>
+		<Nationality>AFG</Nationality>
+		<Gender>1</Gender>
+		<CountryOfBirth>GEO</CountryOfBirth>
+		<PlaceOfBirth>Birmingham</PlaceOfBirth>
+		<DateOfBirth><Year>1980</Year></DateOfBirth>
+		<ApplicantPassportOrTravelDocumentNumber>16836723SDE</ApplicantPassportOrTravelDocumentNumber>
+	</ApplicantData>
+	<NonSponsorEducationInstitutionData>
+		<PartnerInstitutionDetails><Name>Partnered Institution Name</Name>
+			<AddressDetails><AddressLine>Lovelace Road</AddressLine><City>     Bracknell   </City><CountyAreaDistrict>Berkshire</CountyAreaDistrict>
+				<PostCode>RG12 8SN</PostCode><Country>AFG</Country>
+			</AddressDetails>
+		</PartnerInstitutionDetails>
+	</NonSponsorEducationInstitutionData>
+	<CourseDetails>
+		<CourseCurriculumTitle>Footballing Studies</CourseCurriculumTitle>
+		<CourseID>FOOT3456</CourseID>
+		<AcademicLevel>SCQF10</AcademicLevel>
+		<SecondaryAcademicLevel>HND2</SecondaryAcademicLevel>
+		<CourseStartDate>2013-12-26</CourseStartDate>
+		<LatestDateForAcceptanceOnCourse>2013-12-27</LatestDateForAcceptanceOnCourse>
+		<ExpectedCourseEndDate>2013-12-28</ExpectedCourseEndDate>
+		<CourseIsFullTime>true</CourseIsFullTime>
+		<CourseHoursPerWeek>30</CourseHoursPerWeek>
+
+		  <MainSiteOfStudy>
+		  <AddressLine>4-22 Arch Buildings</AddressLine>
+		      <City>Croydon</City>
+		      <CountyAreaDistrict>Surrey</CountyAreaDistrict>
+		      <PostCode>CR0 2DY</PostCode>
+		  </MainSiteOfStudy>
+
+  	<ApplicantHasWorkPlacement>true</ApplicantHasWorkPlacement>
+  
+	</CourseDetails>
+    	<WorkPlacementDetails>
+    		<WorkPlacementPercentage>100</WorkPlacementPercentage>
+      		<WorkPlacementJustificationText>reason work placement percentage exceeds the level in guidance</WorkPlacementJustificationText>
+      		<WorkPlacementAddress>
+        		<AddressLine>1 High Street</AddressLine>
+        		<City>Any City</City>
+        		<CountyAreaDistrict>Any County</CountyAreaDistrict>
+        		<PostCode>L1 2GH</PostCode>
+        		<Country>GBR</Country>
+      		</WorkPlacementAddress>
+    	</WorkPlacementDetails>    	
+    	<Documentation>
+		<DocumentsUsedToObtainOffer>    Exam Results       </DocumentsUsedToObtainOffer>
+		<CourseRequiresATAS>false</CourseRequiresATAS>
+		<PostgraduateDeanCertificateRequired>true</PostgraduateDeanCertificateRequired>
+	</Documentation>
+	<EvidenceDetails>
+	      <SELTRequired>true</SELTRequired>
+	      <EnglishLanguageLevelAttained>B1</EnglishLanguageLevelAttained>
+	      <SELTSpeakingLevel>5.5</SELTSpeakingLevel>
+	      <SELTListeningLevel>5.5</SELTListeningLevel>
+	      <SELTReadingLevel>5.5</SELTReadingLevel>
+	      <SELTWritingLevel>5.5</SELTWritingLevel>
+	      <TestProvider>IELTS</TestProvider>
+	      <PreviousUKStudy>true</PreviousUKStudy>
+	      <PreviousAcademicLevel>SCQF10</PreviousAcademicLevel>
+	      <CurrentPreviousCourseLevelComparison>SAME</CurrentPreviousCourseLevelComparison>
+	      <ProgressionJustification>Reason why the student is not following a progressive education path</ProgressionJustification>
+    	</EvidenceDetails>
+	<FinancialAndAccommodationDetails>
+		<AccomodationProvided>true</AccomodationProvided>
+		<CourseFeeIncludesAccomodationCosts>false</CourseFeeIncludesAccomodationCosts>
+		<CourseFeesForFirstYearOnly>7000</CourseFeesForFirstYearOnly>
+		<BoardingFeesForFirstYearOnly>12000</BoardingFeesForFirstYearOnly>
+		<BoardingFeesPaidToDate>2000</BoardingFeesPaidToDate>
+	</FinancialAndAccommodationDetails>
+</CAS>
+</ns2:BulkFileUploadGeneralRootElement>

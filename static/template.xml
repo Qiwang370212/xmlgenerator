@@ -9,7 +9,7 @@
 </Header>
 <CAS>
 	<ApplicantData>
-		<ApplicantID>1234567890ABCDEFH</ApplicantID>
+		<ApplicantID>  </ApplicantID>
 		<FamilyName>Barry</FamilyName>
 		<GivenName>Gareth</GivenName>
 		<Nationality>AFG</Nationality>
