@@ -3,16 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Append to XML</title>
+    <title>CAS Generator</title>
 </head>
 <body>
-    <h1>Append First Name and Last Name to XML</h1>
+    <h1>CAS Generator</h1>
     <form method="POST">
-        <label for="first_name">First Name:</label><br>
-        <input type="text" id="first_name" name="first_name" required><br>
-        <label for="last_name">Last Name:</label><br>
-        <input type="text" id="last_name" name="last_name" required><br><br>
+        
+        <label for="ApplicantInfo">Applicant Info</label><br>
+
+        <label for="ApplicantID">Applicant ID:</label>
+        <input type="text" id="ApplicantID" name="ApplicantID" placeholder="Applicant ID"><br>
+        
+        <label for="FamileName">Family Name:</label>
+        <input type="text" id="FamileName" name="FamilyName" placeholder="Family Name"><br>
+        
+        <label for="GivenName">Given Name:</label>
+        <input type="text" id="GivenName" name="GivenName" placeholder="Given Name"><br>
+        
+        <label for="Nationality">Nationality:</label>
+        <select id="Nationality" name="Nationality">
+            {% for country, code in nationality_options %}
+            <option value="{{ code }}">{{ country }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="Gender">Gender:</label>
+        <select id="Gender" name="Gender">
+            <option value="1">Male</option>
+            <option value="2">Female</option>
+        </select><br>
+
+        <label for="CountryOfBirth">Country of Birth:</label>
+        <select id="CountryOfBirth" name="CountryOfBirth">
+            {% for country, code in birth_options %}
+            <option value="{{ code }}">{{ country }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="DateOfBirth">Date of Birth:</label>
+        <input type="date" id="DateOfBirth" name="DateOfBirth" placeholder="yyyy-mm-dd" autocomplete="off"><br>
+
+        <label for="ApplicantPassportOrTravelDocumentNumber">Passport Number:</label>
+        <input type="text" id="ApplicantPassportOrTravelDocumentNumber" name="ApplicantPassportOrTravelDocumentNumber" placeholder="Passport Number"><br>
+
+        <label for="CourseDetails">Course Details</label><br>
+
+        <label for="CourseTitle">Course Title</Title></label>
+        <input for="CourseTitle", id="CourseCurriculumTitle" name="CourseCurriculumTitle" placeholder="Course Title"><br><br>
+        
         <input type="submit" value="Submit">
     </form>
+
 </body>
 </html>
