@@ -44,8 +44,10 @@ def append_to_xml(form_data):
         if field == 'DateOfBirth':  
             FullDate_element = ET.SubElement(element, 'FullDate')
             FullDate_element.text = form_data[field]
-        elif field == 'Nationality':
-            element.text = form_data.get(field, '')  # Get the value from the form data
+        elif field == 'GivenName':
+            # Concatenate first name and middle name
+            given_name = form_data.get('FirstName', '') + ' ' + form_data.get('MiddleName', '')
+            element.text = given_name.strip()
         else:
             element.text = form_data[field]
 
