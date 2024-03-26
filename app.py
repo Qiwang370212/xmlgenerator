@@ -8,13 +8,14 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def upload_form():
     if request.method == 'POST':
-        append_to_xml(request.form)
-        return "Form submitted successfully!"
-    # Call index function to render the template with nationality options
+        try:
+            append_to_xml(request.form)
+            return "Form submitted successfully!"
+        except Exception as e:
+            return f"An error occurred: {str(e)}"
     return index()
 
 def index():
-    # Define the path to the Excel file
     excel_file = os.path.join(app.root_path, 'static', 'countrycode.xlsx')
 
     country_nationality = pd.read_excel(excel_file, sheet_name='Nationality codes')
@@ -27,7 +28,15 @@ def index():
     birth_codes = country_birth['Code'].tolist()
     birth_options = zip(birth_countries, birth_codes)
 
-    return render_template('XMLGenerator.html', nationality_options=nationality_options, birth_options=birth_options)
+    course_titles = pd.read_excel(excel_file, sheet_name='Course Info')
+    course_title_options = course_titles['Course Title'].tolist()
+
+    academic_level = pd.read_excel(excel_file, sheet_name='Course Level')
+    academic_display_text = academic_level['Display text'].tolist()
+    academic_BDT_level = academic_level['BDT Code'].tolist()
+    academic_level_options = zip(academic_display_text, academic_BDT_level)
+
+    return render_template('XMLGenerator.html', nationality_options=nationality_options, birth_options=birth_options, course_title_options=course_title_options, academic_level_options=academic_level_options)
 
 def append_to_xml(form_data):
     tree = ET.parse('static/Testing.xml')
@@ -36,25 +45,24 @@ def append_to_xml(form_data):
     CAS = ET.Element('CAS')
     root.append(CAS)
 
-    # Append data to ApplicantData
     ApplicantData = ET.SubElement(CAS, 'ApplicantData')
     for field in ['ApplicantID', 'FamilyName', 'GivenName', 'Nationality', 'Gender', 'CountryOfBirth', 'DateOfBirth', 'ApplicantPassportOrTravelDocumentNumber']:
         element = ET.SubElement(ApplicantData, field)
-        # Special handling for DateOfBirth field
         if field == 'DateOfBirth':  
             FullDate_element = ET.SubElement(element, 'FullDate')
             FullDate_element.text = form_data[field]
         elif field == 'GivenName':
-            # Concatenate first name and middle name
             given_name = form_data.get('FirstName', '') + ' ' + form_data.get('MiddleName', '')
             element.text = given_name.strip()
         else:
             element.text = form_data[field]
 
-    # Append data to CourseDetails
     CourseDetails = ET.SubElement(CAS, 'CourseDetails')
     element = ET.SubElement(CourseDetails, 'CourseCurriculumTitle')
     element.text = form_data['CourseCurriculumTitle']
+
+    element = ET.SubElement(CourseDetails, 'AcademicLevel')
+    element.text = form_data['AcademicLevel']
 
     ET.indent(root, '  ')
 

@@ -20,8 +20,8 @@
         <label for="MiddleName">Middle Name:</label>
         <input type="text" id="MiddleName" name="MiddleName" placeholder="Middle Name"><br>
 
-        <label for="FamileName">Last Name:</label>
-        <input type="text" id="FamileName" name="FamilyName" placeholder="Family Name"><br>
+        <label for="FamilyName">Last Name:</label>
+        <input type="text" id="FamilyName" name="FamilyName" placeholder="Family Name"><br>
         
         <label for="Nationality">Nationality:</label>
         <select id="Nationality" name="Nationality">
@@ -51,8 +51,20 @@
 
         <label for="CourseDetails">Course Details</label><br>
 
-        <label for="CourseTitle">Course Title</Title></label>
-        <input for="CourseTitle", id="CourseCurriculumTitle" name="CourseCurriculumTitle" placeholder="Course Title"><br><br>
+        <label for="CourseCurriculumTitle">Course Title:</label>
+        <select id="CourseCurriculumTitle" name="CourseCurriculumTitle" required>
+            {% for title in course_title_options %}
+            <option value="{{ title }}">{{ title }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="AcademicLevel">Course Level:</label>
+        <select id="AcademicLevel" name="AcademicLevel" required>
+            {% for display_text, level in academic_level_options %}
+            <option value="{{ level }}">{{ display_text }}</option>
+            {% endfor %}
+        </select><br><br>
+
         
         <input type="submit" value="Submit">
     </form>
