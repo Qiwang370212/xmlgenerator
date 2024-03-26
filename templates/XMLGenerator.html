@@ -13,17 +13,10 @@
         
         <label for="ApplicantInfo">Applicant Info</label><br>
 
-        <label for="ApplicantID">Applicant ID:</label>
-        <input type="text" id="ApplicantID" name="ApplicantID" placeholder="Applicant ID"><br>
-
-        <label for="FirstName">First Name:</label>
-        <input type="text" id="FirstName" name="FirstName" placeholder="First Name"><br>
-
-        <label for="MiddleName">Middle Name:</label>
-        <input type="text" id="MiddleName" name="MiddleName" placeholder="Middle Name"><br>
-
-        <label for="FamilyName">Last Name:</label>
-        <input type="text" id="FamilyName" name="FamilyName" placeholder="Family Name"><br>
+        {% for field, label in {'ApplicantID': 'Applicant ID', 'FirstName': 'First Name', 'MiddleName': 'Middle Name', 'FamilyName': 'Last Name'}.items() %}
+            <label for="{{ field }}">{{ label }}:</label>
+            <input type="text" id="{{ field }}" name="{{ field }}" placeholder="{{ label }}"><br>
+        {% endfor %}
         
         <label for="Nationality">Nationality:</label>
         <select id="Nationality" name="Nationality">
@@ -88,20 +81,10 @@
         </select><br>
 
         <div id="partnered_institution_fields" style="display:none;">
-            <label for="PartneredInstitutionName">Partnered Institution Name:</label>
-            <input type="text" id="PartneredInstitutionName" name="PartneredInstitutionName" placeholder="Partnered Institution Name"><br>
-        
-            <label for="PartneredInstitutionAddressLine">Address Line:</label>
-            <input type="text" id="PartneredInstitutionAddressLine" name="PartneredInstitutionAddressLine" placeholder="Address Line"><br>
-        
-            <label for="PartneredInstitutionCity">City:</label>
-            <input type="text" id="PartneredInstitutionCity" name="PartneredInstitutionCity" placeholder="City"><br>
-        
-            <label for="PartneredInstitutionCountyAreaDistrict">County/Area/District:</label>
-            <input type="text" id="PartneredInstitutionCountyAreaDistrict" name="PartneredInstitutionCountyAreaDistrict" placeholder="County/Area/District"><br>
-        
-            <label for="PartneredInstitutionPostCode">Post Code:</label>
-            <input type="text" id="PartneredInstitutionPostCode" name="PartneredInstitutionPostCode" placeholder="Post Code"><br>
+            {% for field, label in {'PartneredInstitutionName': 'Partnered Institution Name', 'PartneredInstitutionAddressLine': 'Address Line', 'PartneredInstitutionCity': 'City', 'PartneredInstitutionCountyAreaDistrict': 'County/Area/District', 'PartneredInstitutionPostCode': 'Post Code'}.items() %}
+                <label for="{{ field }}">{{ label }}:</label>
+                <input type="text" id="{{ field }}" name="{{ field }}" placeholder="{{ label }}"><br>
+            {% endfor %}
             
             <label for="Country">Country:</label>
             <select id="Country" name="Country">
