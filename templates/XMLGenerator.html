@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CAS Generator</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <h1>CAS Generator</h1>
@@ -63,11 +64,53 @@
             {% for display_text, level in academic_level_options %}
             <option value="{{ level }}">{{ display_text }}</option>
             {% endfor %}
-        </select><br><br>
+        </select><br>
 
+        <label for="PartneredInstitution">Do you have a Partnered Institution?</label>
+        <select id="PartneredInstitution" name="PartneredInstitution">
+            <option value="" selected disabled>Select an option</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br>
+
+        <div id="partnered_institution_fields" style="display:none;">
+            <label for="PartneredInstitutionName">Partnered Institution Name:</label>
+            <input type="text" id="PartneredInstitutionName" name="PartneredInstitutionName" placeholder="Partnered Institution Name"><br>
+        
+            <label for="PartneredInstitutionAddressLine">Address Line:</label>
+            <input type="text" id="PartneredInstitutionAddressLine" name="PartneredInstitutionAddressLine" placeholder="Address Line"><br>
+        
+            <label for="PartneredInstitutionCity">City:</label>
+            <input type="text" id="PartneredInstitutionCity" name="PartneredInstitutionCity" placeholder="City"><br>
+        
+            <label for="PartneredInstitutionCountyAreaDistrict">County/Area/District:</label>
+            <input type="text" id="PartneredInstitutionCountyAreaDistrict" name="PartneredInstitutionCountyAreaDistrict" placeholder="County/Area/District"><br>
+        
+            <label for="PartneredInstitutionPostCode">Post Code:</label>
+            <input type="text" id="PartneredInstitutionPostCode" name="PartneredInstitutionPostCode" placeholder="Post Code"><br>
+            
+            <label for="Country">Country:</label>
+            <select id="Country" name="Country">
+                {% for country, code in country_options %}
+                <option value="{{ code }}">{{ country }}</option>
+                {% endfor %}
+            </select><br>
+        </div>
         
         <input type="submit" value="Submit">
     </form>
+
+    <script>
+        $(document).ready(function() {
+            $('#PartneredInstitution').change(function() {
+                if ($(this).val() === 'yes') {
+                    $('#partnered_institution_fields').show();
+                } else {
+                    $('#partnered_institution_fields').hide();
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>

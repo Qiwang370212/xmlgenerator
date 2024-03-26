@@ -81,20 +81,21 @@
   </ns1:CAS>
   <CAS>
     <ApplicantData>
-      <ApplicantID>Testing</ApplicantID>
+      <ApplicantID>Wq890426</ApplicantID>
       <FamilyName>Wang</FamilyName>
       <GivenName>Qi Stephen</GivenName>
-      <Nationality>AFG</Nationality>
+      <Nationality>CHN</Nationality>
       <Gender>1</Gender>
-      <CountryOfBirth>SYR</CountryOfBirth>
+      <CountryOfBirth>CHN</CountryOfBirth>
       <DateOfBirth>
-        <FullDate>2024-12-31</FullDate>
+        <FullDate />
       </DateOfBirth>
-      <ApplicantPassportOrTravelDocumentNumber>Testing</ApplicantPassportOrTravelDocumentNumber>
+      <ApplicantPassportOrTravelDocumentNumber>E00634066</ApplicantPassportOrTravelDocumentNumber>
     </ApplicantData>
+    <NonSponsorEducationInstitutionData />
     <CourseDetails>
-      <CourseCurriculumTitle>London Scholars</CourseCurriculumTitle>
-      <AcademicLevel>RQF4</AcademicLevel>
+      <CourseCurriculumTitle>MSc Computer Sciences</CourseCurriculumTitle>
+      <AcademicLevel>RQF7</AcademicLevel>
     </CourseDetails>
   </CAS>
 </ns0:BulkFileUploadGeneralRootElement>
