@@ -15,7 +15,7 @@ def upload_form():
             return f"An error occurred: {str(e)}"
     return index()
 
-excel_file = os.path.join(app.root_path, 'static', 'countrycode.xlsx')
+excel_file = os.path.join(app.root_path, 'static', 'data_base.xlsx')
 
 @app.route('/get_course_dates')
 def get_course_dates():
