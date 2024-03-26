@@ -79,23 +79,5 @@
       <ns1:BoardingFeesPaidToDate>2000</ns1:BoardingFeesPaidToDate>
     </ns1:FinancialAndAccommodationDetails>
   </ns1:CAS>
-  <CAS>
-    <ApplicantData>
-      <ApplicantID>Wq890426</ApplicantID>
-      <FamilyName>Wang</FamilyName>
-      <GivenName>Qi Stephen</GivenName>
-      <Nationality>CHN</Nationality>
-      <Gender>1</Gender>
-      <CountryOfBirth>CHN</CountryOfBirth>
-      <DateOfBirth>
-        <FullDate />
-      </DateOfBirth>
-      <ApplicantPassportOrTravelDocumentNumber>E00634066</ApplicantPassportOrTravelDocumentNumber>
-    </ApplicantData>
-    <NonSponsorEducationInstitutionData />
-    <CourseDetails>
-      <CourseCurriculumTitle>MSc Computer Sciences</CourseCurriculumTitle>
-      <AcademicLevel>RQF7</AcademicLevel>
-    </CourseDetails>
-  </CAS>
+
 </ns0:BulkFileUploadGeneralRootElement>

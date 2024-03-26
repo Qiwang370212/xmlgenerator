@@ -27,8 +27,8 @@ def index():
     birth_options = zip(birth_country_data['Nationality'].tolist(), birth_country_data['Code'].tolist())
 
     # Read course title data
-    course_titles = pd.read_excel(excel_file, sheet_name='Course Info')
-    course_title_options = course_titles['Course Title'].tolist()
+    course_data = pd.read_excel(excel_file, sheet_name='Course Info')
+    course_title_options = course_data['Course Title'].tolist()
 
     # Read academic level data
     academic_level_data = pd.read_excel(excel_file, sheet_name='Course Level')
@@ -41,7 +41,6 @@ def index():
     return render_template('XMLGenerator.html', nationality_options=nationality_options, 
                            birth_options=birth_options, course_title_options=course_title_options, 
                            academic_level_options=academic_level_options, country_options=country_options)
-
 
 def append_to_xml(form_data):
     try:
@@ -85,6 +84,17 @@ def append_to_xml(form_data):
 
         element = ET.SubElement(CourseDetails, 'AcademicLevel')
         element.text = form_data.get('AcademicLevel', '')
+
+        element = ET.SubElement(CourseDetails, 'CourstStartDate')
+        element.text = form_data.get('CourstStartDate', '')
+
+        latest_date = form_data.get('LatestDateForAcceptanceOnCourse')
+        if latest_date:
+            element = ET.SubElement(CourseDetails, 'LatestDateForAcceptanceOnCourse')
+            element.text = latest_date
+
+        element = ET.SubElement(CourseDetails, 'ExpectedCourseEndDate')
+        element.text = form_data.get('ExpectedCourseEndDate', '')
 
         ET.indent(root, '  ')
 
