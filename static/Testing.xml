@@ -79,5 +79,25 @@
       <ns1:BoardingFeesPaidToDate>2000</ns1:BoardingFeesPaidToDate>
     </ns1:FinancialAndAccommodationDetails>
   </ns1:CAS>
-
+  <CAS>
+    <ApplicantData>
+      <ApplicantID>Testing</ApplicantID>
+      <FamilyName>Wang</FamilyName>
+      <GivenName>Qi Stephen</GivenName>
+      <Nationality>DZA</Nationality>
+      <Gender>2</Gender>
+      <CountryOfBirth>TUR</CountryOfBirth>
+      <DateOfBirth>
+        <FullDate>2024-12-31</FullDate>
+      </DateOfBirth>
+      <ApplicantPassportOrTravelDocumentNumber>Testing</ApplicantPassportOrTravelDocumentNumber>
+    </ApplicantData>
+    <NonSponsorEducationInstitutionData />
+    <CourseDetails>
+      <CourseCurriculumTitle>London Scholars</CourseCurriculumTitle>
+      <AcademicLevel>RQF4</AcademicLevel>
+      <CourseStartDate>2024-09-04</CourseStartDate>
+      <ExpectedCourseEndDate>2025-04-26</ExpectedCourseEndDate>
+    </CourseDetails>
+  </CAS>
 </ns0:BulkFileUploadGeneralRootElement>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import xml.etree.ElementTree as ET
 import pandas as pd
 import os
@@ -14,6 +14,20 @@ def upload_form():
         except Exception as e:
             return f"An error occurred: {str(e)}"
     return index()
+
+excel_file = 'static\countrycode.xlsx'
+
+@app.route('/get_course_dates')
+def get_course_dates():
+    selected_course = request.args.get('course')
+
+    # Read the Excel file and extract start date and end date based on the selected course
+    course_data = pd.read_excel(excel_file, sheet_name='Course Info')
+    course_row = course_data.loc[course_data['Course Title'] == selected_course]
+    start_date = course_row['Start Date'].values[0]
+    end_date = course_row['End Date'].values[0]
+
+    return jsonify({'start_date': str(start_date), 'end_date': str(end_date)})
 
 def index():
     excel_file = os.path.join(app.root_path, 'static', 'countrycode.xlsx')
@@ -85,8 +99,8 @@ def append_to_xml(form_data):
         element = ET.SubElement(CourseDetails, 'AcademicLevel')
         element.text = form_data.get('AcademicLevel', '')
 
-        element = ET.SubElement(CourseDetails, 'CourstStartDate')
-        element.text = form_data.get('CourstStartDate', '')
+        element = ET.SubElement(CourseDetails, 'CourseStartDate')
+        element.text = form_data.get('CourseStartDate', '')
 
         latest_date = form_data.get('LatestDateForAcceptanceOnCourse')
         if latest_date:
@@ -102,7 +116,6 @@ def append_to_xml(form_data):
         return True, "Form submitted successfully!"
     except Exception as e:
         return False, f"An error occurred: {str(e)}"
-
 
 if __name__ == '__main__':
     app.run(debug=True, host="127.0.0.1", port="5000")
