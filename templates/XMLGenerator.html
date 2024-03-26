@@ -14,8 +14,8 @@
         <label for="ApplicantInfo">Applicant Info</label><br>
 
         {% for field, label in {'ApplicantID': 'Applicant ID', 'FirstName': 'First Name', 'MiddleName': 'Middle Name', 'FamilyName': 'Last Name'}.items() %}
-            <label for="{{ field }}">{{ label }}:</label>
-            <input type="text" id="{{ field }}" name="{{ field }}" placeholder="{{ label }}"><br>
+        <label for="{{ field }}">{{ label }}:</label>
+        <input type="text" id="{{ field }}" name="{{ field }}" {% if field == 'FirstName' %}required{% endif %} placeholder="{{ label }}"><br>
         {% endfor %}
         
         <label for="Nationality">Nationality:</label>

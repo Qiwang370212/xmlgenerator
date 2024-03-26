@@ -15,7 +15,7 @@ def upload_form():
             return f"An error occurred: {str(e)}"
     return index()
 
-excel_file = 'static\countrycode.xlsx'
+excel_file = os.path.join(app.root_path, 'static', 'countrycode.xlsx')
 
 @app.route('/get_course_dates')
 def get_course_dates():
@@ -30,7 +30,6 @@ def get_course_dates():
     return jsonify({'start_date': str(start_date), 'end_date': str(end_date)})
 
 def index():
-    excel_file = os.path.join(app.root_path, 'static', 'countrycode.xlsx')
 
     # Read nationality data
     nationality_data = pd.read_excel(excel_file, sheet_name='Nationality codes')
