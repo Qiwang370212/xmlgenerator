@@ -74,12 +74,12 @@ def append_to_xml(form_data):
             element = ET.SubElement(ApplicantData, field)
             if field == 'DateOfBirth':  
                 FullDate_element = ET.SubElement(element, 'FullDate')
-                FullDate_element.text = form_data[field]
+                FullDate_element.text = form_data.get(field, '')  # Default to empty string if not provided
             elif field == 'GivenName':
                 given_name = form_data.get('FirstName', '') + ' ' + form_data.get('MiddleName', '')
                 element.text = given_name.strip()
             else:
-                element.text = form_data[field]
+                element.text = form_data.get(field, '')  # Default to empty string if not provided
 
         if form_data.get('PartneredInstitution') == 'yes':
             NonSponsorEducationInstitutionData = ET.SubElement(CAS, 'NonSponsorEducationInstitutionData')
@@ -91,22 +91,22 @@ def append_to_xml(form_data):
                 element = ET.SubElement(AddressDetails, field)
                 if field == 'Country':
                     # Access the country field directly without concatenating
-                    element.text = form_data.get(field, '')
+                    element.text = form_data.get(field, '')  # Default to empty string if not provided
                 else:
-                    element.text = form_data.get('PartneredInstitution' + field, '')
+                    element.text = form_data.get('PartneredInstitution' + field, '')  # Default to empty string if not provided
         else:
             NonSponsorEducationInstitutionData = ET.SubElement(CAS, 'NonSponsorEducationInstitutionData')
 
         CourseDetails = ET.SubElement(CAS, 'CourseDetails')
         
         element = ET.SubElement(CourseDetails, 'CourseCurriculumTitle')
-        element.text = form_data.get('CourseCurriculumTitle', '')
+        element.text = form_data.get('CourseCurriculumTitle', '')  # Default to empty string if not provided
 
         element = ET.SubElement(CourseDetails, 'AcademicLevel')
-        element.text = form_data.get('AcademicLevel', '')
+        element.text = form_data.get('AcademicLevel', '')  # Default to empty string if not provided
 
         element = ET.SubElement(CourseDetails, 'CourseStartDate')
-        element.text = form_data.get('CourseStartDate', '')
+        element.text = form_data.get('CourseStartDate', '')  # Default to empty string if not provided
 
         latest_date = form_data.get('LatestDateForAcceptanceOnCourse')
         if latest_date:
@@ -114,7 +114,7 @@ def append_to_xml(form_data):
             element.text = latest_date
 
         element = ET.SubElement(CourseDetails, 'ExpectedCourseEndDate')
-        element.text = form_data.get('ExpectedCourseEndDate', '')
+        element.text = form_data.get('ExpectedCourseEndDate', '')  # Default to empty string if not provided
 
         program_type = form_data.get('ProgramType')
         if program_type == 'full-time':
@@ -126,7 +126,7 @@ def append_to_xml(form_data):
             full_time_element = ET.SubElement(CourseDetails, 'CourseIsFullTime')
             full_time_element.text = 'false'
             hours_per_week_element = ET.SubElement(CourseDetails, 'CourseHoursPerWeek')
-            hours_per_week = form_data.get('CourseHoursPerWeek')
+            hours_per_week = form_data.get('CourseHoursPerWeek', '')  # Default to empty string if not provided
             if hours_per_week:
                 hours_per_week_element.text = hours_per_week
 
