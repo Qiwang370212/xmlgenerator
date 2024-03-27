@@ -17,7 +17,7 @@ def upload_form():
 
 excel_file = os.path.join(app.root_path, 'static', 'data_base.xlsx')
 
-@app.route('/get_course_dates')
+@app.route('/get_course_data')
 def get_course_dates():
     selected_course = request.args.get('course')
 
@@ -42,7 +42,7 @@ def index():
     # Read course title data
     course_data = pd.read_excel(excel_file, sheet_name='Course Info')
     course_title_options = course_data['Course Title'].tolist()
-
+    
     # Read academic level data
     academic_level_data = pd.read_excel(excel_file, sheet_name='Course Level')
     academic_level_options = zip(academic_level_data['Display text'].tolist(), academic_level_data['BDT Code'].tolist())
@@ -57,7 +57,13 @@ def index():
 
 def append_to_xml(form_data):
     try:
-        tree = ET.parse('static/Testing.xml')
+        # Check if Testing.xml exists in uploads/xml folder
+        if os.path.exists('uploads/xml/Testing.xml'):
+            xml_path = 'uploads/xml/Testing.xml'
+        else:
+            xml_path = 'static/Testing.xml'
+
+        tree = ET.parse(xml_path)
         root = tree.getroot()
 
         CAS = ET.Element('CAS')
@@ -92,6 +98,7 @@ def append_to_xml(form_data):
             NonSponsorEducationInstitutionData = ET.SubElement(CAS, 'NonSponsorEducationInstitutionData')
 
         CourseDetails = ET.SubElement(CAS, 'CourseDetails')
+        
         element = ET.SubElement(CourseDetails, 'CourseCurriculumTitle')
         element.text = form_data.get('CourseCurriculumTitle', '')
 
@@ -109,9 +116,50 @@ def append_to_xml(form_data):
         element = ET.SubElement(CourseDetails, 'ExpectedCourseEndDate')
         element.text = form_data.get('ExpectedCourseEndDate', '')
 
+        program_type = form_data.get('ProgramType')
+        if program_type == 'full-time':
+            full_time_element = ET.SubElement(CourseDetails, 'CourseIsFullTime')
+            full_time_element.text = 'true'
+            hours_per_week_element = ET.SubElement(CourseDetails, 'CourseHoursPerWeek')
+            hours_per_week_element.text = '0.0'
+        elif program_type == 'part-time':
+            full_time_element = ET.SubElement(CourseDetails, 'CourseIsFullTime')
+            full_time_element.text = 'false'
+            hours_per_week_element = ET.SubElement(CourseDetails, 'CourseHoursPerWeek')
+            hours_per_week = form_data.get('CourseHoursPerWeek')
+            if hours_per_week:
+                hours_per_week_element.text = hours_per_week
+
+        selected_site = form_data.get('MainSiteOfStudy')
+
+        address_sets = {
+            'site1': {
+                'AddressLine': '4-22 Arch Buildings',
+                'City': 'Croydon',
+                'CountyAreaDistrict': 'Surrey',
+                'PostCode': 'CR0 2DY'
+            },
+            'site2': {
+                'AddressLine': 'Another Address',
+                'City': 'Another City',
+                'CountyAreaDistrict': 'Another District',
+                'PostCode': 'Another Postcode'
+            }
+            # Add more address sets as needed
+        }
+
+        main_site_element = ET.SubElement(CourseDetails, 'MainSiteOfStudy')
+        address_set = address_sets.get(selected_site, {})
+        for field, value in address_set.items():
+            element = ET.SubElement(main_site_element, field)
+            element.text = value
+
+        applicant_work_placement = ET.SubElement(CAS, 'ApplicantHasWorkPlacement')
+        applicant_work_placement.text = 'false'
+
         ET.indent(root, '  ')
 
-        tree.write("static/Testing.xml", encoding="utf-8", xml_declaration=True)
+        tree.write("uploads/xml/Testing.xml", encoding="utf-8", xml_declaration=True)
         return True, "Form submitted successfully!"
     except Exception as e:
         return False, f"An error occurred: {str(e)}"

@@ -7,22 +7,25 @@ $(document).ready(function() {
         }
     });
 
-    document.getElementById('CourseCurriculumTitle').addEventListener('change', function() {
-        var selectedCourse = this.value;
+    // Add change event listener to CourseCurriculumTitle select element
+    $('#CourseCurriculumTitle').change(function() {
+        var selectedCourse = $(this).val();
 
         // Send an AJAX request to the server to get start date and end date based on selected course
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/get_course_dates?course=' + encodeURIComponent(selectedCourse), true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                var courseDates = JSON.parse(xhr.responseText);
-                var startDate = formatDate(courseDates.start_date);
-                var endDate = formatDate(courseDates.end_date);
-                document.getElementById('CourseStartDate').value = startDate;
-                document.getElementById('ExpectedCourseEndDate').value = endDate;
+        $.ajax({
+            url: '/get_course_data',
+            type: 'GET',
+            data: { course: selectedCourse },
+            success: function(courseData) {
+                var startDate = formatDate(courseData.start_date);
+                var endDate = formatDate(courseData.end_date);
+                $('#CourseStartDate').val(startDate);
+                $('#ExpectedCourseEndDate').val(endDate);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error occurred while fetching course dates:', error);
             }
-        };
-        xhr.send();
+        });
     });
 
     // Function to format date as yyyy-mm-dd
@@ -33,4 +36,20 @@ $(document).ready(function() {
         var day = ('0' + date.getDate()).slice(-2); // Adding leading zero if needed
         return year + '-' + month + '-' + day;
     }
+
+    // Add change event listener to ProgramType radio buttons
+    $('input[type=radio][name=ProgramType]').change(function() {
+        if (this.value === 'part-time') {
+            $('#hoursPerWeekField').show();
+            $('input[name=CourseHoursPerWeek]').attr('required', true);
+            $('input[name=CourseHoursPerWeek]').attr('placeholder', 'Enter hours per week');
+            $('input[name=CourseHoursPerWeek]').val('');
+            $('input[name=CourseHoursPerWeek]').focus();
+        } else if (this.value === 'full-time') {
+            $('#hoursPerWeekField').hide();
+            $('input[name=CourseHoursPerWeek]').removeAttr('required');
+            $('input[name=CourseHoursPerWeek]').attr('placeholder', '');
+            $('input[name=CourseHoursPerWeek]').val('0.0');
+        }
+    });
 });

@@ -15,11 +15,11 @@
 
         {% for field, label in {'ApplicantID': 'Applicant ID', 'FirstName': 'First Name', 'MiddleName': 'Middle Name', 'FamilyName': 'Last Name'}.items() %}
         <label for="{{ field }}">{{ label }}:</label>
-        <input type="text" id="{{ field }}" name="{{ field }}" {% if field == 'FirstName' %}required{% endif %} placeholder="{{ label }}"><br>
+        <input type="text" id="{{ field }}" name="{{ field }}" {% if field in ['ApplicantID', 'FamilyName'] %}required{% endif %} placeholder="{{ label }}"><br>
         {% endfor %}
         
         <label for="Nationality">Nationality:</label>
-        <select id="Nationality" name="Nationality">
+        <select id="Nationality" name="Nationality" required>
             <option value="" selected disabled>Select an option</option>
             {% for country, code in nationality_options %}
             <option value="{{ code }}">{{ country }}</option>
@@ -27,13 +27,14 @@
         </select><br>
 
         <label for="Gender">Gender:</label>
-        <select id="Gender" name="Gender">
+        <select id="Gender" name="Gender" required>
+            <option value="" selected disabled>Select an option</option>
             <option value="1">Male</option>
             <option value="2">Female</option>
         </select><br>
 
         <label for="CountryOfBirth">Country of Birth:</label>
-        <select id="CountryOfBirth" name="CountryOfBirth">
+        <select id="CountryOfBirth" name="CountryOfBirth" required>
             <option value="" selected disabled>Select an option</option>
             {% for country, code in birth_options %}
             <option value="{{ code }}">{{ country }}</option>
@@ -41,10 +42,10 @@
         </select><br>
 
         <label for="DateOfBirth">Date of Birth:</label>
-        <input type="date" id="DateOfBirth" name="DateOfBirth" placeholder="yyyy-mm-dd" autocomplete="off"><br>
+        <input type="date" id="DateOfBirth" name="DateOfBirth" placeholder="yyyy-mm-dd" autocomplete="off" required><br>
 
         <label for="ApplicantPassportOrTravelDocumentNumber">Passport Number:</label>
-        <input type="text" id="ApplicantPassportOrTravelDocumentNumber" name="ApplicantPassportOrTravelDocumentNumber" placeholder="Passport Number"><br>
+        <input type="text" id="ApplicantPassportOrTravelDocumentNumber" name="ApplicantPassportOrTravelDocumentNumber" placeholder="Passport Number" required><br>
 
         <label for="CourseDetails">Course Details</label><br>
 
@@ -65,35 +66,64 @@
         </select><br>
 
         <label for="CourseStartDate">Start Date:</label>
-        <input type="date" id="CourseStartDate" name="CourseStartDate" placeholder="yyyy-mm-dd" autocomplete="off"><br>      
+        <input type="date" id="CourseStartDate" name="CourseStartDate" placeholder="yyyy-mm-dd" autocomplete="off" required><br>      
         
         <label for="LatestDateForAcceptanceOnCourse">Latest Acceptance Date:</label>
         <input type="date" id="LatestDateForAcceptanceOnCourse" name="LatestDateForAcceptanceOnCourse" placeholder="yyyy-mm-dd" autocomplete="off"><br>
 
         <label for="ExpectedCourseEndDate">End Date:</label>
-        <input type="date" id="ExpectedCourseEndDate" name="ExpectedCourseEndDate" placeholder="yyyy-mm-dd" autocomplete="off"><br>
+        <input type="date" id="ExpectedCourseEndDate" name="ExpectedCourseEndDate" placeholder="yyyy-mm-dd" autocomplete="off" required><br>
+
+        <label for="ProgramType">Program Type:</label><br>
+        <input type="radio" id="FullTime" name="ProgramType" value="full-time" required>
+        <label for="FullTime">Full Time</label>
+        <input type="radio" id="PartTime" name="ProgramType" value="part-time" required>
+        <label for="PartTime">Part Time</label><br>
+        
+        <div id="hoursPerWeekField" style="display:none;">
+            <label for="CourseHoursPerWeek">Hours per Week:</label>
+            <input type="number" id="CourseHoursPerWeek" name="CourseHoursPerWeek" placeholder="Enter hours per week" required>
+        </div>
+        
+        <label for="MainSiteOfStudy">Main Site of Study:</label>
+        <select id="MainSiteOfStudy" name="MainSiteOfStudy" required>
+            <option value="" selected disabled>Select an option</option>
+            <option value="site1">Site 1</option>
+            <option value="site2">Site 2</option>
+        </select><br>
 
         <label for="PartneredInstitution">Do you have a Partnered Institution?</label>
-        <select id="PartneredInstitution" name="PartneredInstitution">
+        <select id="PartneredInstitution" name="PartneredInstitution" required>
             <option value="" selected disabled>Select an option</option>
             <option value="yes">Yes</option>
             <option value="no">No</option>
         </select><br>
 
         <div id="partnered_institution_fields" style="display:none;">
-            {% for field, label in {'PartneredInstitutionName': 'Partnered Institution Name', 'PartneredInstitutionAddressLine': 'Address Line', 'PartneredInstitutionCity': 'City', 'PartneredInstitutionCountyAreaDistrict': 'County/Area/District', 'PartneredInstitutionPostCode': 'Post Code'}.items() %}
-                <label for="{{ field }}">{{ label }}:</label>
-                <input type="text" id="{{ field }}" name="{{ field }}" placeholder="{{ label }}"><br>
-            {% endfor %}
+            <label for="PartneredInstitutionName">Partnered Institution Name:</label>
+            <input type="text" id="PartneredInstitutionName" name="PartneredInstitutionName" placeholder="Partnered Institution Name" value="Northeastern University" required><br>           
+
+            <label for="PartneredInstitutionAddressLine">Address Line:</label>
+            <input type="text" id="PartneredInstitutionAddressLine" name="PartneredInstitutionAddressLine" placeholder="Address Line" value= "360 Huntington Avenue" required><br>
+
+            <label for="PartneredInstitutionCity">City:</label>
+            <input type="text" id="PartneredInstitutionCity" name="PartneredInstitutionCity" placeholder="City" value="Boston" required><br>
+
+            <label for="PartneredInstitutionCountyAreaDistrict">County/Area/District:</label>
+            <input type="text" id="PartneredInstitutionCountyAreaDistrict" name="PartneredInstitutionCountyAreaDistrict" placeholder="County/Area/District" value="Massachusetts" required><br>
+
+            <label for="PartneredInstitutionPostCode">Post Code:</label>
+            <input type="text" id="PartneredInstitutionPostCode" name="PartneredInstitutionPostCode" placeholder="Post Code" value="MA 02115" required><br>
             
             <label for="Country">Country:</label>
-            <select id="Country" name="Country">
+            <select id="Country" name="Country" required>
+                <option value="USA" {% if selected_country == 'USA' %} selected {% endif %}>United States of America</option>
                 {% for country, code in country_options %}
-                <option value="{{ code }}">{{ country }}</option>
+                <option value="{{ code }}" {% if selected_country == code %} selected {% endif %}>{{ country }}</option>
                 {% endfor %}
             </select><br>
+            
         </div>
-        
         <input type="submit" value="Submit">
     </form>
 </body>
