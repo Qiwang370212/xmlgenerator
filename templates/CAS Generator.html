@@ -146,9 +146,64 @@
             <input type="checkbox" id="englishSpeaking" name="englishSpeaking" onchange="toggleEnglishQualification()">
             <label for="englishSpeaking">Please tick here if the student is from an English-speaking country</label>
         </div>
+
+        <label for="SELTRequired">Is SELT required?</label><br>
+        <input type="radio" id="SELTisRequired" name="SELTRequired" value="true">
+        <label for="SELTisRequired">Yes</label>
+        <input type="radio" id="SELTisnotRequired" name="SELTRequired" value="false">
+        <label for="SELTisnotRequired">No</label><br>
+        
+        <div id="ReasonSELTisnotRequired" style="display:none;">
+            <label for="ReasonNotRequired">Choose reason why it is not required:</label>
+            <select id="ReasonNotRequired" name="ReasonNotRequired">
+                <option value="" selected disabled>Select an option</option>
+                <option value="HEI">HEI has made assessment</option>
+                <option value="GIFTED">Gifted student</option>
+                <option value="T4SWITCH">Switch from Student (Child)</option>
+                <option value="ENG_COUNTRY">From English speaking country</option>
+                <option value="ENG_DEGREE">Holding degree from English speaking country</option>
+                <option value="ENG_VISA">Previous successful application</option>
+                <option value="USA_HEI">Study abroad programme as part of USA HEI degree</option>
+            </select>
         </div>
+        
+        <div id="EnglishTestProviderList" style="display:none;">
+            <label for="EnglishTestProvider">English Test Provider:</label>
+            <select id="EnglishTestProvider" name="EnglishTestProvider">
+                <option value="" selected disabled>Select an option</option>
+                <option value="IELTS">IELTS SELT</option>
+                <option value="LANGCRT">LanguageCert</option>
+                <option value="PEARSON">Pearson</option>
+                <option value="PSI">PSI</option>
+                <option value="TCLUK">Trinity College London</option>
+            </select>
+        </div>
+        
+        <div class="score-fields" style="display:none;">
+            <div id="ListeningScore">
+                <label for="ListeningScoreInput">Listening Score:</label>
+                <input type="text" id="ListeningScoreInput" name="ListeningScore">
+            </div>
+            
+            <div id="SpeakingScore">
+                <label for="SpeakingScoreInput">Speaking Score:</label>
+                <input type="text" id="SpeakingScoreInput" name="SpeakingScore">
+            </div>
+            
+            <div id="WritingScore">
+                <label for="WritingScoreInput">Writing Score:</label>
+                <input type="text" id="WritingScoreInput" name="WritingScore">
+            </div>
+            
+            <div id="ReadingScore">
+                <label for="ReadingScoreInput">Reading Score:</label>
+                <input type="text" id="ReadingScoreInput" name="ReadingScore">
+            </div>
+        </div>
+        
+
     </fieldset><br>
-        <input type="submit" value="Submit"><br><br>
+    <input type="submit" value="Submit"><br><br>
     </form>
     <button class="button-edit-template" onclick="window.location.href='/edit_template'">Edit Templates</button>
 </body>

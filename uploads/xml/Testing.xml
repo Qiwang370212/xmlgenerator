@@ -79,4 +79,32 @@
       <ns1:BoardingFeesPaidToDate>2000</ns1:BoardingFeesPaidToDate>
     </ns1:FinancialAndAccommodationDetails>
   </ns1:CAS>
+  <CAS>
+    <ApplicantData>
+      <ApplicantID />
+      <FamilyName>Wa</FamilyName>
+      <GivenName />
+      <Nationality />
+      <Gender />
+      <CountryOfBirth />
+      <DateOfBirth>
+        <FullDate />
+      </DateOfBirth>
+      <ApplicantPassportOrTravelDocumentNumber />
+    </ApplicantData>
+    <NonSponsorEducationInstitutionData />
+    <CourseDetails>
+      <CourseCurriculumTitle />
+      <AcademicLevel />
+      <CourseStartDate />
+      <ExpectedCourseEndDate />
+      <MainSiteOfStudy />
+    </CourseDetails>
+    <ApplicantHasWorkPlacement>false</ApplicantHasWorkPlacement>
+    <Documentation>
+      <DocumentsUsedToObtainOffer>Qualification Template Testing 2 English Qualification Testing 1</DocumentsUsedToObtainOffer>
+      <CourseRequiresATAS>false</CourseRequiresATAS>
+      <PostgraduateDeanCertificateRequired>false</PostgraduateDeanCertificateRequired>
+    </Documentation>
+  </CAS>
 </ns0:BulkFileUploadGeneralRootElement>

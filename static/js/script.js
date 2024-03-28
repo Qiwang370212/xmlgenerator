@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+    // Add change event listener to PartneredInstitution select element
     $('#PartneredInstitution').change(function() {
         if ($(this).val() === 'yes') {
             $('#partnered_institution_fields').show();
@@ -29,15 +30,6 @@ $(document).ready(function() {
         });
     });
 
-    // Function to format date as yyyy-mm-dd
-    function formatDate(dateString) {
-        var date = new Date(dateString);
-        var year = date.getFullYear();
-        var month = ('0' + (date.getMonth() + 1)).slice(-2); // Adding leading zero if needed
-        var day = ('0' + date.getDate()).slice(-2); // Adding leading zero if needed
-        return year + '-' + month + '-' + day;
-    }
-
     // Add change event listener to ProgramType radio buttons
     $('input[type=radio][name=ProgramType]').change(function() {
         if (this.value === 'part-time') {
@@ -53,4 +45,26 @@ $(document).ready(function() {
             $('input[name=CourseHoursPerWeek]').val('0.0');
         }
     });
+
+    $('input[type=radio][name=SELTRequired]').change(function() {
+        if (this.value == 'true') {
+            $('#EnglishTestProviderList').show();
+            $('#EnglishTestProviderList').siblings('.score-fields').show();
+            $('#ReasonSELTisnotRequired').hide();
+        } else {
+            $('#EnglishTestProviderList').hide();
+            $('#EnglishTestProviderList').siblings('.score-fields').hide();
+            $('#ReasonSELTisnotRequired').show();
+        }
+    });
+
+
+    // Function to format date as yyyy-mm-dd
+    function formatDate(dateString) {
+        var date = new Date(dateString);
+        var year = date.getFullYear();
+        var month = ('0' + (date.getMonth() + 1)).slice(-2); // Adding leading zero if needed
+        var day = ('0' + date.getDate()).slice(-2); // Adding leading zero if needed
+        return year + '-' + month + '-' + day;
+    }
 });

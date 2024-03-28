@@ -106,7 +106,7 @@ def index():
         country_data = pd.read_excel(excel_file, sheet_name='Country codes')
         country_options = zip(country_data['Nationality'].tolist(), country_data['Code'].tolist())
 
-        return render_template('XMLGenerator.html', 
+        return render_template('CAS Generator.html', 
                                qualification_template=qualification_template,
                                english_qualification_template=english_qualification_template,
                                english_speaking_template=english_speaking_template,
@@ -218,6 +218,20 @@ def append_to_xml(form_data):
         applicant_work_placement = ET.SubElement(CAS, 'ApplicantHasWorkPlacement')
         applicant_work_placement.text = 'false'
 
+        Documentation = ET.Element('Documentation')
+        CAS.append(Documentation)
+
+        DocumentsUsedToObtainOffer = ET.SubElement(Documentation, 'DocumentsUsedToObtainOffer')
+        qualification_value = form_data.get('qualification', '')
+        english_qualification_value = form_data.get('englishQualification', '')
+        DocumentsUsedToObtainOffer.text = f'{qualification_value}\n{english_qualification_value}'
+
+        CourseRequiresATAS = ET.SubElement(Documentation, 'CourseRequiresATAS')
+        CourseRequiresATAS.text = 'false'
+
+        PostgraduateDeanCertificateRequired = ET.SubElement(Documentation, 'PostgraduateDeanCertificateRequired')
+        PostgraduateDeanCertificateRequired.text = 'false'
+
         ET.indent(root, '  ')
 
         tree.write("uploads/xml/Testing.xml", encoding="utf-8", xml_declaration=True)
@@ -226,4 +240,4 @@ def append_to_xml(form_data):
         return False, f"An error occurred: {str(e)}"
 
 if __name__ == '__main__':
-    app.run(debug=True, host="127.0.0.1", port="5000")
+    app.run(debug=True, host="127.0.0.1", port="8000")
