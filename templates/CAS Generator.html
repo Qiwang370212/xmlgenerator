@@ -213,11 +213,20 @@
     var englishQualificationTextarea = document.getElementById("englishqualification");
     var englishQualificationTemplate = "{{ english_qualification_template['placeholder'] }}";
     var englishSpeakingTemplate = "{{ english_speaking_template['placeholder'] }}";
+    var seltRequiredRadio = document.getElementById("SELTisnotRequired");
+    var reasonNotRequiredDropdown = document.getElementById("ReasonNotRequired");
+
 
     if (checkbox.checked) {
         englishQualificationTextarea.value = englishSpeakingTemplate;
+        $('#SELTisRequired, #ListeningScore, #SpeakingScore, #WritingScore, #ReadingScore, #EnglishTestProviderList, #ReasonSELTisnotRequired, #SELTisnotRequired, label[for="SELTisRequired"], label[for="SELTisnotRequired"],label[for="SELTRequired"]').hide();
+        reasonNotRequiredDropdown.value = "HEI"
+        seltRequiredRadio.checked = true;
     } else {
         englishQualificationTextarea.value = englishQualificationTemplate;
+        $('#SELTisRequired, #SELTisnotRequired, label[for="SELTisRequired"], label[for="SELTisnotRequired"],label[for="SELTRequired"]').show();
+        seltRequiredRadio.checked = false;
+        reasonNotRequiredDropdown.value = "";
     }
 }
 </script>
