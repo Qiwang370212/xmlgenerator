@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Templates</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Templates</h1>
+        <form action="/save_templates" method="post">
+            <div>
+                <label for="qualificationPlaceholder">Qualification Template:</label>
+                <textarea id="qualificationPlaceholder" name="qualificationPlaceholder" rows="4">{{ qualification_template['placeholder'] }}</textarea>
+            </div>
+
+            <div>
+                <label for="englishQualificationPlaceholder">English Qualification Template:</label>
+                <textarea id="englishQualificationPlaceholder" name="englishQualificationPlaceholder" rows="4">{{ english_qualification_template['placeholder'] }}</textarea>
+            </div>
+
+            <!-- Add textarea for editing English Speaking template -->
+            <div>
+                <label for="englishSpeakingPlaceholder">English Speaking Template:</label>
+                <textarea id="englishSpeakingPlaceholder" name="englishSpeakingPlaceholder" rows="4">{{ english_speaking_template['placeholder'] }}</textarea>
+                <input type="hidden" name="englishSpeakingTemplate" value="{{ english_speaking_template['placeholder'] }}">
+            </div>
+            <button type="submit">Save</button>
+        </form>
+
+    </div>
+</body>
+</html>

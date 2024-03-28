@@ -11,12 +11,20 @@
     <h1>CAS Generator</h1>
     <form method="POST" id="casForm">
         
-        <label for="ApplicantInfo">Applicant Info</label><br>
-
-        {% for field, label in {'ApplicantID': 'Applicant ID', 'FirstName': 'First Name', 'MiddleName': 'Middle Name', 'FamilyName': 'Last Name'}.items() %}
-        <label for="{{ field }}">{{ label }}:</label>
-        <input type="text" id="{{ field }}" name="{{ field }}" {% if field in ['ApplicantID', 'FamilyName'] %}required{% endif %} placeholder="{{ label }}"><br>
-        {% endfor %}
+    <fieldset>
+        <legend>Student Information</legend>
+        
+        <label for="ApplicantID">Applicant ID:</label>
+        <input type="text" id="ApplicantID" name="ApplicantID" placeholder="Applicant ID"><br>
+        
+        <label for="FirstName">First Name:</label>
+        <input type="text" id="FirstName" name="FirstName" placeholder="First Name"><br>
+        
+        <label for="MiddleName">Middle Name:</label>
+        <input type="text" id="MiddleName" name="MiddleName" placeholder="Middle Name"><br>
+        
+        <label for="FamilyName">Last Name:</label>
+        <input type="text" id="FamilyName" name="FamilyName" required placeholder="Last Name"><br>
         
         <label for="Nationality">Nationality:</label>
         <select id="Nationality" name="Nationality">
@@ -46,8 +54,10 @@
 
         <label for="ApplicantPassportOrTravelDocumentNumber">Passport Number:</label>
         <input type="text" id="ApplicantPassportOrTravelDocumentNumber" name="ApplicantPassportOrTravelDocumentNumber" placeholder="Passport Number"><br>
+    </fieldset><br>
 
-        <label for="CourseDetails">Course Details</label><br>
+    <fieldset>
+        <legend>Course Details</legend>
 
         <label for="CourseCurriculumTitle">Course Title:</label>
         <select id="CourseCurriculumTitle" name="CourseCurriculumTitle">
@@ -122,9 +132,38 @@
                 <option value="{{ code }}" {% if selected_country == code %} selected {% endif %}>{{ country }}</option>
                 {% endfor %}
             </select><br>
-            
         </div>
-        <input type="submit" value="Submit">
+    </fieldset><br>
+
+    <fieldset>
+        <legend>Qualification Information</legend>
+        <label for="qualification" id="qualificationTitle">{{ qualification_template['title'] }}:</label><br>
+        <textarea id="qualification" name="qualification" required>{{ qualification_template['placeholder'] }}</textarea><br>
+        <label for="englishqualification" id="englishQualificationTitle">{{ english_qualification_template['title'] }}:</label><br>
+        <textarea id="englishqualification" name="englishQualification" required>{{ english_qualification_template['placeholder'] }}</textarea><br>
+        
+        <div class="checkbox-row">
+            <input type="checkbox" id="englishSpeaking" name="englishSpeaking" onchange="toggleEnglishQualification()">
+            <label for="englishSpeaking">Please tick here if the student is from an English-speaking country</label>
+        </div>
+        </div>
+    </fieldset><br>
+        <input type="submit" value="Submit"><br><br>
     </form>
+    <button class="button-edit-template" onclick="window.location.href='/edit_template'">Edit Templates</button>
 </body>
+<script>
+    function toggleEnglishQualification() {
+    var checkbox = document.getElementById("englishSpeaking");
+    var englishQualificationTextarea = document.getElementById("englishqualification");
+    var englishQualificationTemplate = "{{ english_qualification_template['placeholder'] }}";
+    var englishSpeakingTemplate = "{{ english_speaking_template['placeholder'] }}";
+
+    if (checkbox.checked) {
+        englishQualificationTextarea.value = englishSpeakingTemplate;
+    } else {
+        englishQualificationTextarea.value = englishQualificationTemplate;
+    }
+}
+</script>
 </html>

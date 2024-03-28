@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     $('#PartneredInstitution').change(function() {
         if ($(this).val() === 'yes') {
             $('#partnered_institution_fields').show();

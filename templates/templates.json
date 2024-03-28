@@ -1,0 +1,14 @@
+{
+    "qualification_template": {
+        "title": "Qualification",
+        "placeholder": "Qualification Template Testing 2"
+    },
+    "english_qualification_template": {
+        "title": "English Qualification",
+        "placeholder": "English Qualification Testing 1"
+    },
+    "english_speaking_template": {
+        "title": "English Speaking",
+        "placeholder": "English Speaking Country 2"
+    }
+}
